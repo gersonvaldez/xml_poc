@@ -1,0 +1,4 @@
+%{
+  "saxmerl": {:hex, :saxmerl, "0.1.0", "421d39b2950ad8cd6d50339fa0638b54e7af993832e9f73753dc9cf7454536a1", [:mix], [{:saxy, "~> 1.2", [hex: :saxy, repo: "hexpm", optional: false]}], "hexpm", "e625185b27f218f9eb917eadab31643ff3c6947ad43b12a47a4504b3b521074b"},
+  "saxy": {:hex, :saxy, "1.4.0", "c7203ad20001f72eaaad07d08f82be063fa94a40924e6bb39d93d55f979abcba", [:mix], [], "hexpm", "3fe790354d3f2234ad0b5be2d99822a23fa2d4e8ccd6657c672901dac172e9a9"},
+}

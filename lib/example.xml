@@ -1,0 +1,14 @@
+<todos>
+  <todo id="1">
+    <body>This is the body of to-do item #1</body>
+    <priority>3</priority>
+  </todo>
+  <todo id="2">
+    <body>This is the body of to-do item #2</body>
+    <priority>1</priority>
+  </todo>
+  <todo id="3">
+    <body>This is the body of to-do item #3</body>
+    <priority>3</priority>
+  </todo>
+</todos>
