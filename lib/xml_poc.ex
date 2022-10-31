@@ -60,20 +60,6 @@ defmodule XmlPoc do
 
   end
 
-
-  def sanitize_document({tag_name, attributes, content}) do
-    content
-    |> Enum.filter(fn t->   is_tuple(t) end)
-    |> sanitize_document()
-    |> dbg
-  end
-
-  def sanitize_document({tag_name, attributes, [head| tail]}) do
-    is_tuple(head)
-    t = {tag_name, attributes, tail}
-    sanitize_document(t)
-  end
-
   def map_saxy do
     {:ok, xmldoc} = File.read(Path.expand("ticket.xml", "lib"))
     {:ok, doc} = Saxy.MapForm.parse_string(xmldoc)
@@ -84,7 +70,7 @@ defmodule XmlPoc do
 
   def search_node(document_body ,name) do
 
-    indexed_document =  Enum.with_index(document_body, fn element, index -> {index, element} end)
+    indexed_document =  Enum.with_index(elem(document_body,2), fn element, index -> {index, element} end)
 
     indexed_document
     |> Enum.find(fn node  ->
