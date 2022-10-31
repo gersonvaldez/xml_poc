@@ -18,6 +18,12 @@ defmodule XmlPoc do
     :world
   end
 
+  def saxy_handler do
+    {:ok, xmldoc} = File.read(Path.expand("ticket.xml", "lib"))
+    {:ok,parsed_doc }= Saxy.parse_string(xmldoc, EventHandler, [])
+    parsed_doc
+  end
+
 
   def xmerl do
     {:ok, xmldoc} = File.read(Path.expand("ticket.xml", "lib"))
@@ -33,15 +39,44 @@ defmodule XmlPoc do
 
   end
 
-
   def saxy do
 
     {:ok, xmldoc} = File.read(Path.expand("ticket.xml", "lib"))
-    {:ok, doc } = Saxy.SimpleForm.parse_string(to_string(xmldoc))
 
-    document_body = elem(doc,2)
-    document_body
+    doc_sanitized = xmldoc
+    |> String.replace("\n", "")
+    |> Regex.replace(">\s{1,}<", "><")
+    |> Regex.replace("/>\s{1,}<", "/><")
 
+
+    {:ok, doc } = Saxy.SimpleForm.parse_string(to_string(doc_sanitized))
+
+    doc
+
+
+
+    #document_body = elem(doc,2)
+    #document_body
+
+  end
+
+
+  def sanitize_document({tag_name, attributes, content}) do
+    content
+    |> Enum.filter(fn t->   is_tuple(t) end)
+    |> sanitize_document()
+    |> dbg
+  end
+
+  def sanitize_document({tag_name, attributes, [head| tail]}) do
+    is_tuple(head)
+    t = {tag_name, attributes, tail}
+    sanitize_document(t)
+  end
+
+  def map_saxy do
+    {:ok, xmldoc} = File.read(Path.expand("ticket.xml", "lib"))
+    {:ok, doc} = Saxy.MapForm.parse_string(xmldoc)
   end
 
 
@@ -62,6 +97,23 @@ defmodule XmlPoc do
       end
       end)
   end
+
+
+
+  def delete_element(document_body, index) do
+
+
+    updated_list = document_body
+    |> List.to_tuple
+    |> Tuple.delete_at(index)
+    |> Tuple.to_list
+
+    updated_list
+
+  end
+
+
+
 
 
 
