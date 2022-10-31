@@ -45,8 +45,8 @@ defmodule XmlPoc do
 
     doc_sanitized = xmldoc
     |> String.replace("\n", "")
-    |> Regex.replace(">\s{1,}<", "><")
-    |> Regex.replace("/>\s{1,}<", "/><")
+    |> String.replace(~r/\n/, "")
+    |> String.replace(~r/>\s{1,}</, "><")
 
 
     {:ok, doc } = Saxy.SimpleForm.parse_string(to_string(doc_sanitized))
