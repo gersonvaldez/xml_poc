@@ -87,15 +87,14 @@ defmodule XmlPoc do
 
 
   def delete_element(document_body, index) do
+    {tag_name, attr, childs} = document_body
 
-
-    updated_list = document_body
+    updated_list = childs
     |> List.to_tuple
     |> Tuple.delete_at(index)
     |> Tuple.to_list
 
-    updated_list
-
+    {tag_name, attr , updated_list}
   end
 
 
