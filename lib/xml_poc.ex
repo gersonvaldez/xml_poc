@@ -98,10 +98,14 @@ defmodule XmlPoc do
   end
 
 
-
-
-
-
-
+  def update_element(document_body, index, new_element) do
+    {tag_name, attr, childs} = document_body
+    updated_list = childs
+    |> List.to_tuple
+    |> Tuple.insert_at(index,new_element)
+    |> Tuple.delete_at(index+1)
+    |> Tuple.to_list
+    {tag_name, attr , updated_list}
+  end
 
 end
